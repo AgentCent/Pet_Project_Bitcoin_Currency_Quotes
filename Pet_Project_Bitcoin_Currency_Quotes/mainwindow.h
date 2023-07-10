@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include "secondwidget.h"
-#include "arrayJsonNames.h"
+#include "currencyQuotation.h"
 
 #include <QMainWindow>
 #include <QDebug>
@@ -26,20 +26,28 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
 
-    void init();
-    void initComboBox();
-
-    void printWiget();
-
     ~MainWindow();
 
+
 private slots:
+    //void initT();
+
+    void serverRequestInit();
     void readData();
     void finishReading();
 
-    void on_comboBox_activated(int index);
 
-    void on_checkBox_stateChanged(int arg1);
+    void init();
+    void initCurrencyQuotation();
+    void initMainWindow();
+
+
+    void createWidgets();
+
+
+    void on_currencyComboBox_activated(int index);
+
+    void on_windowActiveCheckBox_stateChanged(int arg1);
 
 private:
     Ui::MainWindow *ui;
@@ -47,10 +55,15 @@ private:
     QNetworkAccessManager *netManager;
     QNetworkReply *netReply;
     QByteArray dataBuffer;
-    QJsonObject currencyQuotation;
+    QJsonObject objectCurrencyQuotation;
 
-    std::vector<JsonNamesStatus> arrayJsonNames;
 
-    std::vector<secondwidget*> cyrrencyWidgets;
+    std::vector<currencyQuotation> arrayCurrencyQuotation;
+
+
+    std::vector<secondwidget*> currencyWidgets;
+
+
+
 };
 #endif // MAINWINDOW_H

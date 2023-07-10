@@ -40,46 +40,66 @@ namespace {
 struct qt_meta_stringdata_CLASSMainWindowENDCLASS_t {};
 static constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::stringData(
     "MainWindow",
-    "readData",
+    "serverRequestInit",
     "",
+    "readData",
     "finishReading",
-    "on_comboBox_activated",
+    "init",
+    "initCurrencyQuotation",
+    "initMainWindow",
+    "createWidgets",
+    "on_currencyComboBox_activated",
     "index",
-    "on_checkBox_stateChanged",
+    "on_windowActiveCheckBox_stateChanged",
     "arg1"
 );
 #else  // !QT_MOC_HAS_STRING_DATA
 struct qt_meta_stringdata_CLASSMainWindowENDCLASS_t {
-    uint offsetsAndSizes[16];
+    uint offsetsAndSizes[26];
     char stringdata0[11];
-    char stringdata1[9];
+    char stringdata1[18];
     char stringdata2[1];
-    char stringdata3[14];
-    char stringdata4[22];
-    char stringdata5[6];
-    char stringdata6[25];
-    char stringdata7[5];
+    char stringdata3[9];
+    char stringdata4[14];
+    char stringdata5[5];
+    char stringdata6[22];
+    char stringdata7[15];
+    char stringdata8[14];
+    char stringdata9[30];
+    char stringdata10[6];
+    char stringdata11[37];
+    char stringdata12[5];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_CLASSMainWindowENDCLASS_t::offsetsAndSizes) + ofs), len 
 Q_CONSTINIT static const qt_meta_stringdata_CLASSMainWindowENDCLASS_t qt_meta_stringdata_CLASSMainWindowENDCLASS = {
     {
         QT_MOC_LITERAL(0, 10),  // "MainWindow"
-        QT_MOC_LITERAL(11, 8),  // "readData"
-        QT_MOC_LITERAL(20, 0),  // ""
-        QT_MOC_LITERAL(21, 13),  // "finishReading"
-        QT_MOC_LITERAL(35, 21),  // "on_comboBox_activated"
-        QT_MOC_LITERAL(57, 5),  // "index"
-        QT_MOC_LITERAL(63, 24),  // "on_checkBox_stateChanged"
-        QT_MOC_LITERAL(88, 4)   // "arg1"
+        QT_MOC_LITERAL(11, 17),  // "serverRequestInit"
+        QT_MOC_LITERAL(29, 0),  // ""
+        QT_MOC_LITERAL(30, 8),  // "readData"
+        QT_MOC_LITERAL(39, 13),  // "finishReading"
+        QT_MOC_LITERAL(53, 4),  // "init"
+        QT_MOC_LITERAL(58, 21),  // "initCurrencyQuotation"
+        QT_MOC_LITERAL(80, 14),  // "initMainWindow"
+        QT_MOC_LITERAL(95, 13),  // "createWidgets"
+        QT_MOC_LITERAL(109, 29),  // "on_currencyComboBox_activated"
+        QT_MOC_LITERAL(139, 5),  // "index"
+        QT_MOC_LITERAL(145, 36),  // "on_windowActiveCheckBox_state..."
+        QT_MOC_LITERAL(182, 4)   // "arg1"
     },
     "MainWindow",
-    "readData",
+    "serverRequestInit",
     "",
+    "readData",
     "finishReading",
-    "on_comboBox_activated",
+    "init",
+    "initCurrencyQuotation",
+    "initMainWindow",
+    "createWidgets",
+    "on_currencyComboBox_activated",
     "index",
-    "on_checkBox_stateChanged",
+    "on_windowActiveCheckBox_stateChanged",
     "arg1"
 };
 #undef QT_MOC_LITERAL
@@ -92,7 +112,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       9,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -100,16 +120,26 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   38,    2, 0x08,    1 /* Private */,
-       3,    0,   39,    2, 0x08,    2 /* Private */,
-       4,    1,   40,    2, 0x08,    3 /* Private */,
-       6,    1,   43,    2, 0x08,    5 /* Private */,
+       1,    0,   68,    2, 0x08,    1 /* Private */,
+       3,    0,   69,    2, 0x08,    2 /* Private */,
+       4,    0,   70,    2, 0x08,    3 /* Private */,
+       5,    0,   71,    2, 0x08,    4 /* Private */,
+       6,    0,   72,    2, 0x08,    5 /* Private */,
+       7,    0,   73,    2, 0x08,    6 /* Private */,
+       8,    0,   74,    2, 0x08,    7 /* Private */,
+       9,    1,   75,    2, 0x08,    8 /* Private */,
+      11,    1,   78,    2, 0x08,   10 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,    5,
-    QMetaType::Void, QMetaType::Int,    7,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,   10,
+    QMetaType::Void, QMetaType::Int,   12,
 
        0        // eod
 };
@@ -123,14 +153,24 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
     qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSMainWindowENDCLASS_t,
         // Q_OBJECT / Q_GADGET
         QtPrivate::TypeAndForceComplete<MainWindow, std::true_type>,
+        // method 'serverRequestInit'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'readData'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'finishReading'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'on_comboBox_activated'
+        // method 'init'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'initCurrencyQuotation'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'initMainWindow'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'createWidgets'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_currencyComboBox_activated'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
-        // method 'on_checkBox_stateChanged'
+        // method 'on_windowActiveCheckBox_stateChanged'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<int, std::false_type>
     >,
@@ -143,10 +183,15 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         auto *_t = static_cast<MainWindow *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->readData(); break;
-        case 1: _t->finishReading(); break;
-        case 2: _t->on_comboBox_activated((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 3: _t->on_checkBox_stateChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 0: _t->serverRequestInit(); break;
+        case 1: _t->readData(); break;
+        case 2: _t->finishReading(); break;
+        case 3: _t->init(); break;
+        case 4: _t->initCurrencyQuotation(); break;
+        case 5: _t->initMainWindow(); break;
+        case 6: _t->createWidgets(); break;
+        case 7: _t->on_currencyComboBox_activated((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 8: _t->on_windowActiveCheckBox_stateChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         default: ;
         }
     }
@@ -171,13 +216,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 9;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 4)
+        if (_id < 9)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 4;
+        _id -= 9;
     }
     return _id;
 }

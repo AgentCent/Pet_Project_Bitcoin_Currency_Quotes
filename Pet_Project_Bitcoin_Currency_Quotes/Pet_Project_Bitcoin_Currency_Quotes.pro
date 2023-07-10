@@ -14,7 +14,7 @@ SOURCES += \
     secondwidget.cpp
 
 HEADERS += \
-    arrayJsonNames.h \
+    currencyQuotation.h \
     mainwindow.h \
     secondwidget.h
 

@@ -25,9 +25,9 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    QComboBox *comboBox;
-    QLabel *label;
-    QCheckBox *checkBox;
+    QComboBox *currencyComboBox;
+    QLabel *currencyLabel;
+    QCheckBox *windowActiveCheckBox;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -38,15 +38,15 @@ public:
         MainWindow->resize(300, 150);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
-        comboBox = new QComboBox(centralwidget);
-        comboBox->setObjectName("comboBox");
-        comboBox->setGeometry(QRect(0, 0, 70, 30));
-        label = new QLabel(centralwidget);
-        label->setObjectName("label");
-        label->setGeometry(QRect(80, 0, 220, 30));
-        checkBox = new QCheckBox(centralwidget);
-        checkBox->setObjectName("checkBox");
-        checkBox->setGeometry(QRect(0, 30, 70, 30));
+        currencyComboBox = new QComboBox(centralwidget);
+        currencyComboBox->setObjectName("currencyComboBox");
+        currencyComboBox->setGeometry(QRect(0, 0, 70, 30));
+        currencyLabel = new QLabel(centralwidget);
+        currencyLabel->setObjectName("currencyLabel");
+        currencyLabel->setGeometry(QRect(80, 0, 220, 30));
+        windowActiveCheckBox = new QCheckBox(centralwidget);
+        windowActiveCheckBox->setObjectName("windowActiveCheckBox");
+        windowActiveCheckBox->setGeometry(QRect(0, 30, 121, 30));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
@@ -64,8 +64,8 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        label->setText(QCoreApplication::translate("MainWindow", "Currency quotes", nullptr));
-        checkBox->setText(QCoreApplication::translate("MainWindow", "Active", nullptr));
+        currencyLabel->setText(QCoreApplication::translate("MainWindow", "Currency quotes", nullptr));
+        windowActiveCheckBox->setText(QCoreApplication::translate("MainWindow", "Display separately", nullptr));
     } // retranslateUi
 
 };

@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "arrayJsonNames.h"
+#include "currencyQuotation.h"
 
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -14,66 +14,29 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , arrayJsonNames(0)
 {
     ui->setupUi(this);
 
     netManager = new QNetworkAccessManager(this);
     netReply = nullptr;
 
-    init();
+    serverRequestInit();
+    //init();
 }
 
-void MainWindow::init()
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+
+void MainWindow::serverRequestInit()
 {
     dataBuffer.clear();
     QNetworkRequest req{QUrl(QString("https://blockchain.info/ticker"))};
     netReply = netManager->get(req);
     connect(netReply,&QNetworkReply::readyRead,this,&MainWindow::readData);
     connect(netReply,&QNetworkReply::finished,this,&MainWindow::finishReading);
-}
-
-void MainWindow::initComboBox()
-{
-
-    QStringList list;
-    for (std::size_t index = 0; index < arrayJsonNames.size(); ++index)
-    {
-        list.append(arrayJsonNames[index].name);
-    }
-    auto currency = currencyQuotation.value(arrayJsonNames[0].name).toObject().value("15m").toDouble();
-    ui->label->setText(QString::number(currency, 'f', 3));
-    ui->comboBox->addItems(list);
-}
-
-void MainWindow::printWiget()
-{
-    for (std::size_t var = 0; var < cyrrencyWidgets.size(); ++var) {
-        cyrrencyWidgets[var]->close();
-    }
-    cyrrencyWidgets.clear();
-    int horizontal{0};
-    int vertical{0};
-    int widgetIndex{0};
-    for (std::size_t index = 0; index < arrayJsonNames.size(); ++index) {
-        if(horizontal == 16) {
-            ++vertical;
-            horizontal = 0;
-        }
-        if(arrayJsonNames[index].status) {
-            cyrrencyWidgets.push_back(new secondwidget(this));
-            cyrrencyWidgets[widgetIndex]->setCurrency(arrayJsonNames[index].name, currencyQuotation.value(arrayJsonNames[index].name).toObject().value("15m").toDouble());
-            cyrrencyWidgets[widgetIndex]->setGeometry(horizontal * 100, vertical * 20, 100, 20);
-            cyrrencyWidgets[widgetIndex]->show();
-            ++widgetIndex;
-            ++horizontal;
-        }
-    }
-}
-
-MainWindow::~MainWindow()
-{
-    delete ui;
 }
 
 void MainWindow::readData()
@@ -85,39 +48,84 @@ void MainWindow::finishReading()
 {
     if(netReply->error() != QNetworkReply::NoError){
         qDebug() << "Error : " << netReply->errorString();
-        QMessageBox::warning(this,"Error",QString("Request[Error]").arg(netReply->errorString()));
+        QMessageBox::warning(this,"Error",QString("Request Error").arg(netReply->errorString()));
     }else{
-        currencyQuotation = QJsonDocument::fromJson(dataBuffer).object();
-        for (auto var : currencyQuotation) {
-            JsonNamesStatus nameStatus{ var.toObject().value("symbol").toString(), 0 };
-            arrayJsonNames.push_back(nameStatus);
-        }
-        initComboBox();
+        objectCurrencyQuotation = QJsonDocument::fromJson(dataBuffer).object();
     }
+    init();
 }
 
 
-
-void MainWindow::on_comboBox_activated(int index)
+void MainWindow::init()
 {
-    auto currency = currencyQuotation.value(arrayJsonNames[index].name).toObject().value("15m").toDouble();
-    ui->label->setText(QString::number(currency, 'f', 3));
-    if(arrayJsonNames[index].status == 1) {
-        ui->checkBox->setChecked(true);
+    initCurrencyQuotation();
+    initMainWindow();
+}
+
+void MainWindow::initCurrencyQuotation()
+{
+    for (auto var : objectCurrencyQuotation)
+        arrayCurrencyQuotation.push_back(currencyQuotation{ var.toObject().value("symbol").toString(), var.toObject().value("15m").toDouble(), 0 });
+}
+
+void MainWindow::initMainWindow()
+{
+    for (std::size_t index = 0; index < arrayCurrencyQuotation.size(); ++index)
+    {
+        ui->currencyComboBox->addItem(arrayCurrencyQuotation[index].title);
+    }
+    ui->currencyLabel->setText(QString::number(arrayCurrencyQuotation[0].quotation, 'f', 3));
+}
+
+
+void MainWindow::createWidgets()
+{
+    for (std::size_t index = 0; index < currencyWidgets.size(); ++index) {
+            currencyWidgets[index]->close();
+        }
+        currencyWidgets.clear();
+        int horizontal{0};
+        int vertical{0};
+        int widgetIndex{0};
+        for (std::size_t index = 0; index < arrayCurrencyQuotation.size(); ++index) {
+            if(horizontal == 16) {
+                ++vertical;
+                horizontal = 0;
+            }
+            if(arrayCurrencyQuotation[index].status) {
+                currencyWidgets.push_back(new secondwidget(this));
+                currencyWidgets[widgetIndex]->setCurrency(arrayCurrencyQuotation[index].title, arrayCurrencyQuotation[index].quotation);
+                currencyWidgets[widgetIndex]->setGeometry(horizontal * 100, vertical * 20, 100, 20);
+                currencyWidgets[widgetIndex]->show();
+                ++widgetIndex;
+                ++horizontal;
+            }
+        }
+}
+
+void MainWindow::on_currencyComboBox_activated(int index)
+{
+    ui->currencyLabel->setText(QString::number(arrayCurrencyQuotation[index].quotation, 'f', 3));
+    if(arrayCurrencyQuotation[index].status == 1) {
+        bool oldState = ui->windowActiveCheckBox->blockSignals(true);
+        ui->windowActiveCheckBox->setChecked(true);
+        ui->windowActiveCheckBox->blockSignals(oldState);
     }
     else
-        ui->checkBox->setChecked(false);
+    {
+        bool oldState = ui->windowActiveCheckBox->blockSignals(false); //Исправить чтобы не запускало event CheckBox'а
+        ui->windowActiveCheckBox->setChecked(false);
+        ui->windowActiveCheckBox->blockSignals(oldState);
+    }
 }
 
-void MainWindow::on_checkBox_stateChanged(int arg1)
-{
-    for(std::size_t index = 0; index < arrayJsonNames.size(); ++index)
-        if(arrayJsonNames[index].name == ui->comboBox->currentText()) {
-            if(arg1 == 2)
-                arrayJsonNames[index].status = 1;
-            else
-                arrayJsonNames[index].status = 0;
-        }
 
-    printWiget();
+void MainWindow::on_windowActiveCheckBox_stateChanged(int arg1)
+{
+    if(arg1 == 2)
+        arrayCurrencyQuotation[ui->currencyComboBox->currentIndex()].status = true;
+    else
+        arrayCurrencyQuotation[ui->currencyComboBox->currentIndex()].status = false;
+
+    createWidgets();
 }

@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QComboBox" name="comboBox">
+   <widget class="QComboBox" name="currencyComboBox">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -24,7 +24,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="currencyLabel">
     <property name="geometry">
      <rect>
       <x>80</x>
@@ -37,17 +37,17 @@
      <string>Currency quotes</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="checkBox">
+   <widget class="QCheckBox" name="windowActiveCheckBox">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>30</y>
-      <width>70</width>
+      <width>121</width>
       <height>30</height>
      </rect>
     </property>
     <property name="text">
-     <string>Active</string>
+     <string>Display separately</string>
     </property>
    </widget>
   </widget>

@@ -13,8 +13,9 @@ class secondwidget : public QWidget
 
 public:
     explicit secondwidget(QWidget *parent = nullptr);
-    void setCurrency(QString title, double quotation);
     ~secondwidget();
+
+    void setCurrency(QString title, double quotation);
 
 private:
     Ui::secondwidget *ui;
